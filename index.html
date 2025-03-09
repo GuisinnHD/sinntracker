@@ -1,45 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Duolingo</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .profile { margin-top: 20px; }
-    </style>
+    <title>Busca Perfil Duolingo</title>
 </head>
 <body>
-    <h1>Consultar Perfil do Duolingo</h1>
+    <h1>Buscar Perfil do Duolingo</h1>
+    
+    <!-- Campo para digitar o nome de usuário -->
     <input type="text" id="username" placeholder="Digite o nome de usuário">
-    <button onclick="getDuolingoProfile()">Buscar</button>
+    <button id="buscar">Buscar</button>
 
-    <div class="profile" id="profile"></div>
+    <!-- Exibe o resultado da busca -->
+    <pre id="resultado"></pre>
 
-    <script>
-        async function getDuolingoProfile() {
-            const username = document.getElementById("username").value;
-            const apiUrl = `https://sinntracker.onrender.com/duolingo/${username}`;
-            const response = await fetch(apiUrl);
-
-            
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error("Usuário não encontrado");
-                
-                const data = await response.json();
-                const profile = `
-                    <h2>${data.users[0].username}</h2>
-                    <p><strong>XP Total:</strong> ${data.users[0].totalXp}</p>
-                    <p><strong>Streak:</strong> ${data.users[0].streak} dias</p>
-                    <p><strong>Idiomas:</strong> ${data.users[0].courses.map(c => c.title).join(", ")}</p>
-                `;
-                
-                document.getElementById("profile").innerHTML = profile;
-            } catch (error) {
-                document.getElementById("profile").innerHTML = `<p style="color: red;">Erro: ${error.message}</p>`;
-            }
-        }
-    </script>
+    <script src="app.js"></script> <!-- Adicione aqui o caminho para o seu arquivo JS -->
 </body>
 </html>

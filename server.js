@@ -1,22 +1,21 @@
-const express = require("express");
-const fetch = require("node-fetch");
-const cors = require("cors");
+document.getElementById("buscar").addEventListener("click", function() {
+    const username = document.getElementById("username").value.trim(); // Pega o nome de usuário
 
-const app = express();
-app.use(cors());
-
-app.get("/duolingo/:username", async (req, res) => {
-    const username = req.params.username;
-    const url = `https://www.duolingo.com/2017-06-30/users?username=${username}`;
-    
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: "Erro ao buscar dados" });
+    if (username === "") {
+        alert("Por favor, insira um nome de usuário!");
+        return;
     }
-});
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+    const apiUrl = `https://sinntracker.onrender.com/duolingo/${username}`; // URL do seu backend no Render
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Exibe os dados no console
+            document.getElementById("resultado").innerText = JSON.stringify(data, null, 2); // Exibe os dados no HTML
+        })
+        .catch(error => {
+            console.error("Erro ao buscar dados:", error);
+            document.getElementById("resultado").innerText = "Erro ao buscar dados."; // Exibe mensagem de erro
+        });
+});

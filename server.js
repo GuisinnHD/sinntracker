@@ -1,49 +1,22 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+document.getElementById("buscar").addEventListener("click", function() {
+    const username = document.getElementById("username").value.trim(); // Pega o nome de usuário
 
-// Simulação de dados que você obteria da API do Duolingo
-const getDuolingoData = (username) => {
-    // Simulação de dados de um perfil do Duolingo
-    if (username === 'Guisinn') {
-        return {
-            users: [
-                {
-                    username: username,
-                    name: "Guilherme ⚡️",
-                    streak: 321,
-                    motivation: "travel",
-                    totalXp: 16312,
-                    picture: "//simg-ssl.duolingo.com/ssr-avatars/1438369258/SSR-9sXmVGCcBz",
-                    courses: [
-                        { title: "Japanese", xp: 3733, crowns: 9999 },
-                        { title: "English", xp: 9101, crowns: 9999 },
-                        { title: "Korean", xp: 3478, crowns: 9999 }
-                    ]
-                }
-            ]
-        };
-    } else {
-        // Retorna um erro se o usuário não for encontrado
-        return { error: "Usuário não encontrado!" };
-    }
-};
-
-// Rota para buscar informações de um perfil do Duolingo
-app.get('/duolingo/:username', (req, res) => {
-    const username = req.params.username;
-    const userData = getDuolingoData(username);
-
-    // Verifica se existe o erro (caso o usuário não exista)
-    if (userData.error) {
-        return res.status(404).json(userData);
+    if (username === "") {
+        alert("Por favor, insira um nome de usuário!");
+        return;
     }
 
-    // Retorna os dados como JSON
-    res.json(userData);
-});
+    // URL do backend no Render
+    const apiUrl = `https://sinntracker.onrender.com/duolingo/${username}`;
 
-// Inicia o servidor
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Exibe os dados no console
+            document.getElementById("resultado").innerText = JSON.stringify(data, null, 2); // Exibe os dados no HTML
+        })
+        .catch(error => {
+            console.error("Erro ao buscar dados:", error);
+            document.getElementById("resultado").innerText = "Erro ao buscar dados."; // Exibe mensagem de erro
+        });
 });

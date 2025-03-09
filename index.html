@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Duolingo</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .profile { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Consultar Perfil do Duolingo</h1>
+    <input type="text" id="username" placeholder="Digite o nome de usuário">
+    <button onclick="getDuolingoProfile()">Buscar</button>
+
+    <div class="profile" id="profile"></div>
+
+    <script>
+        async function getDuolingoProfile() {
+            const username = document.getElementById("username").value;
+            const url = `https://www.duolingo.com/2017-06-30/users?username=${username}`;
+            
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Usuário não encontrado");
+                
+                const data = await response.json();
+                const profile = `
+                    <h2>${data.users[0].username}</h2>
+                    <p><strong>XP Total:</strong> ${data.users[0].totalXp}</p>
+                    <p><strong>Streak:</strong> ${data.users[0].streak} dias</p>
+                    <p><strong>Idiomas:</strong> ${data.users[0].courses.map(c => c.title).join(", ")}</p>
+                `;
+                
+                document.getElementById("profile").innerHTML = profile;
+            } catch (error) {
+                document.getElementById("profile").innerHTML = `<p style="color: red;">Erro: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

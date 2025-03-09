@@ -19,7 +19,9 @@
     <script>
         async function getDuolingoProfile() {
             const username = document.getElementById("username").value;
-            const url = `https://www.duolingo.com/2017-06-30/users?username=${username}`;
+            const apiUrl = `https://meu-backend.onrender.com/duolingo/${username}`;
+            const response = await fetch(apiUrl);
+
             
             try {
                 const response = await fetch(url);

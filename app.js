@@ -6,7 +6,8 @@ document.getElementById("buscar").addEventListener("click", function() {
         return;
     }
 
-    const apiUrl = `https://sinntracker.onrender.com/duolingo/${username}`; // URL do seu backend no Render
+    // URL do backend no Render
+    const apiUrl = `https://sinntracker.onrender.com/duolingo/${username}`;
 
     fetch(apiUrl)
         .then(response => response.json())

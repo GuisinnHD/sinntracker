@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscar Perfil do Duolingo</title>
-    <style>
+    <title>Busca Perfil Duolingo</title>
+        <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f4f8;
@@ -92,17 +92,16 @@
     </style>
 </head>
 <body>
-
     <h1>Buscar Perfil do Duolingo</h1>
+    
+    <!-- Campo para digitar o nome de usuário -->
+    <input type="text" id="username" placeholder="Digite o nome de usuário">
+    <button id="buscar">Buscar</button>
 
-    <div class="container">
-        <input type="text" id="username" placeholder="Digite o nome de usuário">
-        <button id="buscar">Buscar</button>
+    <!-- Exibe o resultado da busca -->
+    <pre id="resultado"></pre>
 
-        <div id="resultado" class="profile"></div>
-    </div>
-
-    <script src="server.js"></script>
-
+    <!-- Link para o JavaScript -->
+    <script src="server.js"></script> <!-- Esse é o arquivo JavaScript -->
 </body>
 </html>
